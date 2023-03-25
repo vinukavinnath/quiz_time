@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'dart:math';
 import 'quiz_brain.dart';
 
 QuizBrain quizBrain=QuizBrain();
@@ -16,12 +15,7 @@ class Quizzler extends StatefulWidget {
 }
 
 class _QuizzlerState extends State<Quizzler> {
-  int quecount=0;
 
-  int increment() {
-    quecount=Random().nextInt(3);
-    return quecount;
-  }
 
   //Set of Lists will go here!
 
@@ -42,7 +36,7 @@ class _QuizzlerState extends State<Quizzler> {
                 flex: 10,
                 child: Center(
                   child: Text(
-                    quizBrain.questionBank[quecount].questionText,
+                    quizBrain.getQuestionText(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         color: Colors.white,
@@ -56,19 +50,19 @@ class _QuizzlerState extends State<Quizzler> {
                 child: TextButton(
                   onPressed: () {
                     setState(() {
-                      if (quizBrain.questionBank[quecount].questionAnswer){
+                      if (quizBrain.getQuestionAnswer()==true){
+                        print("Correct");
                         result.add(
                           Icon(Icons.check, color: Colors.green),
                         );
                       }else{
+                        print("Incorrect");
                         result.add(
                           const Icon(Icons.close, color: Colors.red),
                         );
                       }
-                      // increment();
+                      quizBrain.increase();
                     });
-                    increment();
-                    // print("Correct");
                   },
                   child: const Card(
                     margin: EdgeInsets.all(8),
@@ -88,19 +82,19 @@ class _QuizzlerState extends State<Quizzler> {
                 child: TextButton(
                   onPressed: () {
                     setState(() {
-                      if (quizBrain.questionBank[quecount].questionAnswer==false){
+                      if (quizBrain.getQuestionAnswer()==false){
+                        print("Correct");
                         result.add(
                           const Icon(Icons.check, color: Colors.green),
                         );
                       }else{
+                        print("Incorrect");
                         result.add(
                           const Icon(Icons.close, color: Colors.red),
                         );
                       }
-
+                      quizBrain.increase();
                     });
-                    increment();
-                    // print("Incorrect");
                   },
                   child: const Card(
                     margin: EdgeInsets.all(8),
@@ -125,3 +119,8 @@ class _QuizzlerState extends State<Quizzler> {
     );
   }
 }
+
+//TODO Add Sounds
+//TODO Add Popups
+//TODO Add Popup Screen
+
